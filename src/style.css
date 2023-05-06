@@ -1,6 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=K2D:wght@200;300;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
 a {
   font-family: "K2D", sans-serif;
   font-weight: 500 !important;
   font-size: large !important;
+}
+* {
+  font-family: "K2D", sans-serif;
+}
+.btn {
+  border-radius: 0 !important;
+}
+.b-or {
+  border-bottom: 2px solid #ff5400;
+}
+.c-y {
+  color: #ff5400;
 }

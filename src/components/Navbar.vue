@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="navbar navbar-light bg-light w-100 m-0 p-0 d-flex flex-row justify-content-between"
+    class="navbar top-0 navbar-light bg-light w-100 m-0 p-0 d-flex flex-row justify-content-between"
   >
     <div class="navbar-brand w-25 p-0 m-0">
       <router-link to="/" class="d-flex w-75 m-0 p-0">

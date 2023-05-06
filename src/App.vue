@@ -10,7 +10,10 @@ components: {
 
 <template>
   <Navbar />
-  <RouterView />
+  <div class="w-100 d-flex justify-content-center">
+    <RouterView />
+  </div>
+  
 </template>
 
 <style scoped></style>
