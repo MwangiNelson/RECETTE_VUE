@@ -18,3 +18,39 @@ a {
 .c-y {
   color: #ff5400;
 }
+.vh-25 {
+  height: 25vh;
+}
+.vh-40 {
+  height: 40vh;
+}
+.vh-75 {
+  height: 75vh;
+}
+.vh-50 {
+  height: 50vh;
+}
+.primary-bg {
+  background-color: #ff5400;
+}
+.h-fit {
+  height: fit-content;
+}
+.h-inherit {
+  height: inherit;
+}
+.cover {
+  object-fit: cover;
+}
+.primary-text {
+  color: #ff5400;
+}
+.fs-sm {
+  font-size: 0.75em;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}

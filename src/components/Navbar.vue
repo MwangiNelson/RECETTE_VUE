@@ -18,7 +18,9 @@
             <router-link class="nav-link active" to="/">Home</router-link>
           </li>
           <li>
-            <router-link class="nav-link" to="/recipes">Recipes</router-link>
+            <router-link class="nav-link" to="/recipes"
+              >Recipes</router-link
+            >
           </li>
           <li>
             <router-link class="nav-link" to="/recipes"
