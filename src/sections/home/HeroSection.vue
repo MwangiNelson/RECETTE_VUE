@@ -20,15 +20,17 @@
               BROWSE RECIPES
             </button></router-link
           >
-          <button
-            :class="`btn py-3 px-4 ms-4 d-flex flex-row align-items-center ${
-              hoveredState ? 'border' : 'btn-hero text-light'
-            }`"
-            @mouseenter="hoveredState = false"
-          >
-            <i class="fa-solid fa-circle-plus fs-lg me-2"></i>
-            Share your recipe
-          </button>
+          <router-link to="/recette-creator">
+            <button
+              :class="`btn py-3 px-4 ms-4 d-flex flex-row align-items-center decoration-none ${
+                hoveredState ? 'border text-dark' : 'btn-hero text-light'
+              }`"
+              @mouseenter="hoveredState = false"
+            >
+              <i class="fa-solid fa-circle-plus fs-lg me-2"></i>
+              Share your recipe
+            </button>
+          </router-link>
         </div>
       </div>
       <div class="w-50 h-100">
@@ -93,5 +95,8 @@ export default {
 .hero-img {
   object-fit: cover;
   object-position: center;
+}
+a {
+  text-decoration: none;
 }
 </style>

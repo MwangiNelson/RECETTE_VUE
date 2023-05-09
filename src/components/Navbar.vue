@@ -18,17 +18,15 @@
             <router-link class="nav-link active" to="/">Home</router-link>
           </li>
           <li>
-            <router-link class="nav-link" to="/recipes"
-              >Recipes</router-link
-            >
+            <router-link class="nav-link" to="/recipes">Recipes</router-link>
           </li>
           <li>
-            <router-link class="nav-link" to="/recipes"
+            <router-link class="nav-link" to="/cookbook"
               >My CookBook</router-link
             >
           </li>
           <li>
-            <router-link class="nav-link" to="/recipes"
+            <router-link class="nav-link" to="/recette-creator"
               >Add Recipes</router-link
             >
           </li>

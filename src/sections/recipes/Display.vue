@@ -1,33 +1,61 @@
 <template>
-  <div class="vh-100 mb-4 d-flex flex-column align-items-center ">
+  <div class="vh-100 mb-4 d-flex flex-column align-items-center">
     <div class="w-75 py-4">
-      <p class="fs-5">500 discovered Results</p>
+      <p class="fs-5">{{ recipes.length }} discovered Results</p>
     </div>
     <div class="grid w-75">
-      <div class="w-100 vh-40 position-relative">
-        <img src="../../assets/pancakes.jpg" alt="" class=" w-100 h-50 cover">
-        <div class="w-100 h-50 d-flex flex-column px-3 py-1 bg-dark text-light">
+      <div class="w-100" v-for="recipe in recipes" :key="recipe.id">
+        <div
+          class="w-100 vh-40 position-relative"
+          @click="showDetailedRecipe(recipe.id, recipe.title)"
+        >
+          <img :src="recipe.image_url" alt="" class="w-100 h-50 cover" />
+          <div
+            class="w-100 h-50 d-flex flex-column px-3 py-1 bg-dark text-light"
+          >
             <div class="w-100 d-flex flex-row mb-2">
-                <span class="primary-text text-capitalize fs-sm">RECIPE |</span>
-                <span class="text-capitalize ms-2 fs-sm">BY JON DOE</span>
+              <span class="primary-text text-capitalize fs-sm">RECIPE |</span>
+              <span class="text-uppercase ms-2 fs-sm"
+                >BY {{ recipe.author }}</span
+              >
             </div>
             <h4 class="fs-5 text-capitalize">
-                Fried Beef with Watercress Salad
+              {{ recipe.title }}
             </h4>
-        </div>
-        <div class="position-absolute w-100 bottom-0 ps-3">
-            <p class="text-secondary">
-                5/5 STARS
-            </p>
+          </div>
+          <div class="position-absolute w-100 bottom-0 ps-3">
+            <p class="text-secondary">{{ recipe.likes }} STARS</p>
+          </div>
         </div>
       </div>
-      
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  data() {
+    return {
+      recipes: [{ id: -1, title: "", author: "", image_url: "", likes: 0 }],
+    };
+  },
+  methods: {
+    getRecipes() {
+      this.recipes = [];
+      axios.get("http://127.0.0.1:8000/api/tests").then((res) => {
+        this.recipes = res.data.data;
+      });
+    },
+    showDetailedRecipe(id, title) {
+      sessionStorage.setItem("id", id);
+      this.$router.push(`/recipes/${encodeURIComponent(title)}`);
+    },
+  },
+  mounted() {
+    this.getRecipes();
+  },
+};
 </script>
 
 <style lang="css" scoped>

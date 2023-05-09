@@ -13,7 +13,7 @@ components: {
 <template>
   <Navbar />
   <div class="w-100 d-flex justify-content-center">
-    <Transition name="fade"><RouterView /></Transition>
+    <RouterView />
   </div>
   <Footer />
 </template>
