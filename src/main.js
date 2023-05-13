@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
+
 import { createRouter, createWebHistory } from 'vue-router'
 import './style.css'
+import { store } from './store'
 import App from './App.vue'
 
 
@@ -19,4 +21,15 @@ const router = createRouter(
     }
 )
 
-createApp(App).use(router).mount('#app')
+// Save state to localStorage on beforeunload event
+window.addEventListener('beforeunload', () => {
+    localStorage.setItem('store', JSON.stringify(store.state))
+})
+// Retrieve state from localStorage and initialize store
+// const savedState = JSON.parse(localStorage.getItem('store'))
+// if (savedState) {
+//     store.replaceState(savedState)
+// }
+
+createApp(App).use(router).use(store).mount('#app')
+

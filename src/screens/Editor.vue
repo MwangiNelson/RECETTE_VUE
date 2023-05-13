@@ -6,6 +6,7 @@
       <img src="../assets/hero-img.jpg" alt="" class="cover w-100 h-100" />
     </div>
     <div class="w-75 d-flex flex-column p-4 position-relative">
+      <Loader v-if="loading" />
       <div class="w-100 d-flex flex-column px-4">
         <h3 class="display-5 text-capitalize f-roboto">Share your recipe</h3>
         <p class="fs-sm my-3 text-dark">
@@ -164,6 +165,7 @@
 import notification from "../notification";
 import uploadPhotoSyntax from "../uploadPhoto";
 import axios from "axios";
+import Loader from "../components/Loader.vue";
 export default {
   data() {
     return {
@@ -176,6 +178,9 @@ export default {
       loading: false,
     };
   },
+  components: {
+    Loader,
+  },
   methods: {
     addIngredient() {
       if (this.ingredient.trim() == "") {
@@ -187,6 +192,7 @@ export default {
         return;
       }
       this.ingredients.push(this.ingredient.toLowerCase());
+      this.ingredient = "";
     },
     popIngredient(index) {
       this.ingredients.splice(index, 1);
@@ -206,42 +212,74 @@ export default {
     },
     clearEverything() {
       this.title = "";
-      this.photo = "";
+      this.photo = null;
       this.procedure = "";
       this.ingredients = [];
     },
+    sendToApi(recipeData) {
+      axios
+        .post(`${this.$store.state.url_header}api/tests`, recipeData)
+        .then((res) => {
+          this.clearEverything();
+          notification("Recipe has been uploaded successfully", "#45dd91");
+          this.loading = false;
+        })
+        .catch((err) => {
+          notification(`${err}`, "#fb4d4d");
+          this.loading = false;
+          console.log(recipeData);
+          return false;
+        });
+    },
+    validateData(obj) {
+      for (let key in obj) {
+        if (typeof obj[key] === "string" && obj[key].length === 0) {
+          return false;
+        }
+      }
+      return true;
+    },
     submitRecipe() {
+      //check if theres an uploaded photo
+      if (this.photo == null) {
+        notification(`Please upload a photo.`, "#ffc107");
+        return;
+      }
       this.loading = true;
       let image = this.$refs.photoUpload.files[0];
       let filename = image.name;
       let image_url;
+
+      let inputs = {
+        title: this.title,
+        author: "Nelson",
+        likes: 0,
+        desc: this.procedure,
+        ingredients: this.ingredients.join("|"),
+      };
+
+      if (this.validateData(inputs) == false) {
+        notification(`Please fill all the fields.`, "#ffc107");
+        this.loading = false;
+        return;
+      }
+      //upload photo to firestore database and get it's url
       uploadPhotoSyntax(image, filename)
         .then((url) => {
           image_url = url;
-          this.loading = false;
-          console.log("checkpoint 1");
 
           let recipeData = {
             title: this.title,
             author: "Nelson",
-            likes: 0 ,
+            likes: 0,
             desc: this.procedure,
             ingredients: this.ingredients.join("|"),
             url: image_url,
           };
-          console.log(recipeData);
-          axios
-            .post("http://127.0.0.1:8000/api/tests", recipeData)
-            .then((res) => {
-              this.clearEverything();
-              console.log("checkpoint 2");
-              notification("Recipe has been uploaded successfully", "#45dd91");
-            })
-            .catch((err) => {
-              notification(`${err}`, "#fb4d4d");
-              console.log(recipeData);
-              return false;
-            });
+
+          //Empty validation for the data
+
+          this.sendToApi(recipeData);
         })
         .catch((err) => {
           console.error(err);

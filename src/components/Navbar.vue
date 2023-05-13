@@ -11,7 +11,7 @@
         />
       </router-link>
     </div>
-    <div class="w-75 d-flex justify-content-between">
+    <div class="w-75 d-flex justify-content-between align-items-center">
       <div class="nav-links w-50">
         <ul class="navbar-nav d-flex flex-row justify-content-between">
           <li>
@@ -33,7 +33,16 @@
         </ul>
       </div>
       <div class="nav-button w-25 d-flex flex-row justify-content-center">
-        <button class="btn-nav btn btn-outline-dark px-4">
+        <img
+          src="../assets/man.png"
+          alt=""
+          class="w-25 contain rounded-circle"
+          v-if="isAuthenticated"
+        /><button
+          v-else
+          class="btn-nav btn btn-outline-dark px-4"
+          @click="openAuth"
+        >
           <i class="fa-solid fa-right-to-bracket pe-2"></i> Sign In
         </button>
       </div>
@@ -42,12 +51,29 @@
 </template>
 
 <script lang="ts">
-export default {};
+export default {
+  // data() {
+  //   return {
+  //     isAuthenticated: false,
+  //   };
+  // },
+  methods: {
+    openAuth() {
+      this.$emit("open-auth");
+    },
+  },
+  computed: {
+    isAuthenticated() {
+      return this.$store.state.isAuthenticated;
+    },
+  },
+};
 </script>
 
 <style lang="css" scoped>
 .navbar {
   border-bottom: 2px solid #ff5400;
+  z-index: 99;
 }
 .logo {
   /* height: 5vw !important; */
