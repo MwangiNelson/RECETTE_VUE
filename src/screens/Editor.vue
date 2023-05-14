@@ -252,7 +252,7 @@ export default {
 
       let inputs = {
         title: this.title,
-        author: "Nelson",
+        author: this.$store.state.user.username,
         likes: 0,
         desc: this.procedure,
         ingredients: this.ingredients.join("|"),
@@ -270,7 +270,7 @@ export default {
 
           let recipeData = {
             title: this.title,
-            author: "Nelson",
+            author: this.$store.state.user.username,
             likes: 0,
             desc: this.procedure,
             ingredients: this.ingredients.join("|"),

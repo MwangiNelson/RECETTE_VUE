@@ -35,25 +35,17 @@
 <script>
 import axios from "axios";
 export default {
-  data() {
-    return {
-      recipes: [{ id: -1, title: "", author: "", image_url: "", likes: 0 }],
-    };
-  },
   methods: {
-    getRecipes() {
-      this.recipes = [];
-      axios.get("http://127.0.0.1:8000/api/tests").then((res) => {
-        this.recipes = res.data.data;
-      });
-    },
     showDetailedRecipe(id, title) {
       sessionStorage.setItem("id", id);
       this.$router.push(`/recipes/${encodeURIComponent(title)}`);
     },
   },
-  mounted() {
-    this.getRecipes();
+  props: {
+    recipes: {
+      type: Array,
+      required: true,
+    },
   },
 };
 </script>

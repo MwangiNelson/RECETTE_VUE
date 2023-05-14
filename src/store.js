@@ -23,9 +23,8 @@ const actions = {
     async login({ commit }, userData) {
         try {
             const response = await Axios.post(`${store.state.url_header}api/user/sign-in`, userData)
-            commit('login', response.data.user)
-            console.log(response.data)
-            return response.data.message
+            commit('login', response.data.data.user)
+            return response.data.data.message
         } catch (error) {
             throw new Error(error.response.data.message)
         }
@@ -33,14 +32,17 @@ const actions = {
     async register({ commit }, userData) {
         try {
             const response = await Axios.post(`${store.state.url_header}api/user/sign-up`, userData)
-            commit('login', response.data.user)
-            return response.data.message
+            commit('login', response.data.data.user)
+            return response.data.data.message
         } catch (error) {
             throw new Error(error.response.data.message)
         }
     },
     logout({ commit }) {
         commit('logout')
+        localStorage.removeItem('store')
+        sessionStorage.removeItem('savedRecipes')
+        this.$router.push('/')
     }
 }
 

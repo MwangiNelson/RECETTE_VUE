@@ -34,6 +34,7 @@
               } btn btn-light px-4 py-2 mt-4 border border-2 align-items-center d-flex`"
               @mouseenter="hoveredState = true"
               @mouseleave="hoveredState = false"
+              @click.prevent="saveRecipe"
             >
               <i class="fa-solid fa-bookmark me-3 fs-3"></i>
               SAVE RECIPE
@@ -98,6 +99,7 @@
 
 <script>
 import axios from "axios";
+import notification from "../../notification";
 export default {
   data() {
     return {
@@ -112,7 +114,9 @@ export default {
     getRecipe() {
       axios
         .get(
-          `http://127.0.0.1:8000/api/tests/${sessionStorage.getItem("id")}`
+          `${this.$store.state.url_header}api/tests/${sessionStorage.getItem(
+            "id"
+          )}`
         )
         .then((res) => {
           this.recipe = res.data.data;
@@ -145,6 +149,19 @@ export default {
       const year = date.getFullYear();
 
       return `${month} ${day}, ${year}`;
+    },
+    saveRecipe() {
+      const data = {
+        username: this.$store.state.user.username,
+        recipe_id: sessionStorage.getItem("id"),
+      };
+      axios.post(`${this.$store.state.url_header}api/recipe/save`, data)
+        .then((res)=>{
+          sessionStorage.setItem('savedRecipes',res)
+          notification("Recipe has been added to your cookbook", "#45dd91");
+        }).catch((err)=>{
+          notification(`${err}`,'#fd4d4d')
+        })
     },
   },
   mounted() {

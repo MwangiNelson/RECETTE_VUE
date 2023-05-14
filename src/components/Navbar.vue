@@ -32,13 +32,23 @@
           </li>
         </ul>
       </div>
-      <div class="nav-button w-25 d-flex flex-row justify-content-center">
-        <img
-          src="../assets/man.png"
-          alt=""
-          class="w-25 contain rounded-circle"
+      <div
+        class="nav-button w-25 d-flex flex-row aic justify-content-center p-1"
+      >
+        <button
+          class="d-flex jcc aic p-1 w-fit h-100 btn btn-light"
           v-if="isAuthenticated"
-        /><button
+          @click="showProfile"
+        >
+          <img
+            src="../assets/man.png"
+            alt=""
+            class="contain rounded-circle profile"
+          />
+
+          <i class="p-2 fa-solid fa-caret-down"></i>
+        </button>
+        <button
           v-else
           class="btn-nav btn btn-outline-dark px-4"
           @click="openAuth"
@@ -47,25 +57,33 @@
         </button>
       </div>
     </div>
+    <Profile v-if="isAuthenticated && profileVisible" />
   </nav>
 </template>
 
 <script lang="ts">
+import Profile from "../sections/auth/Profile.vue";
 export default {
-  // data() {
-  //   return {
-  //     isAuthenticated: false,
-  //   };
-  // },
+  data() {
+    return {
+      profileVisible: false,
+    };
+  },
   methods: {
     openAuth() {
       this.$emit("open-auth");
+    },
+    showProfile() {
+      this.profileVisible = !this.profileVisible;
     },
   },
   computed: {
     isAuthenticated() {
       return this.$store.state.isAuthenticated;
     },
+  },
+  components: {
+    Profile,
   },
 };
 </script>
@@ -85,5 +103,11 @@ export default {
 .btn-nav:hover {
   border: #ff5400;
   background-color: #ff5400;
+}
+.profile {
+  width: 3.5em;
+}
+.w-fit {
+  width: max-content;
 }
 </style>
