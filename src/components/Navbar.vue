@@ -36,7 +36,7 @@
         class="nav-button w-25 d-flex flex-row aic justify-content-center p-1"
       >
         <button
-          class="d-flex jcc aic p-1 w-fit h-100 btn btn-light"
+          class="d-flex jcc aic p-1 w-fit h-100 btn btn-light rounded-2"
           v-if="isAuthenticated"
           @click="showProfile"
         >
@@ -46,7 +46,11 @@
             class="contain rounded-circle profile"
           />
 
-          <i class="p-2 fa-solid fa-caret-down"></i>
+          <i
+            :class="`p-2 fa-solid ${
+              profileVisible ? 'fa-caret-up' : 'fa-caret-down'
+            } `"
+          ></i>
         </button>
         <button
           v-else

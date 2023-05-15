@@ -42,7 +42,7 @@ const actions = {
         commit('logout')
         localStorage.removeItem('store')
         sessionStorage.removeItem('savedRecipes')
-        this.$router.push('/')
+        router.push('/')
     }
 }
 

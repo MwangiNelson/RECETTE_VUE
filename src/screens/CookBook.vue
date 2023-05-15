@@ -1,12 +1,13 @@
 <template>
   <section
-    :class="`w-100 jcc pt-4 d-flex flex-column ${
+    :class="`w-100 jcc pt-4 d-flex flex-column p-3 ${
       loading || emptyState ? 'vh-100' : ''
     }`"
   >
     <div
-      class="w-100 alert alert-warning rounded p-2 shadow-lg h-fit mx-3 jcc aic d-flex flex-column"
+      class="w-100 alert alert-warning rounded p-2 shadow-lg h-fit jcc aic d-flex flex-column"
       role="alert"
+      v-if="loading || emptyState"
     >
       <div class="d-flex flex-column jcc aic" v-if="loading">
         <p>Fetching recipes ..</p>
@@ -44,7 +45,9 @@ export default {
         email: this.$store.state.user.email,
       };
       axios
-        .post(`http://127.0.0.1:8000/user/getCookBook`, userData)
+        .get(
+          `${this.$store.state.url_header}api/getCookBook/${this.$store.state.user.email}`
+        )
         .then((res) => {
           this.loading = false;
           this.recipes = res.data.data;
@@ -70,7 +73,7 @@ export default {
     },
   },
   mounted() {
-    this.getSavedRecipes();
+    setTimeout(() => this.getSavedRecipes(), 1500);
   },
   components: {
     Display,
