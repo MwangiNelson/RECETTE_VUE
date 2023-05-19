@@ -218,7 +218,7 @@ export default {
     },
     sendToApi(recipeData) {
       axios
-        .post(`${this.$store.state.url_header}api/tests`, recipeData)
+        .post(`${this.$store.state.url_header}recipes`, recipeData)
         .then((res) => {
           this.clearEverything();
           notification("Recipe has been uploaded successfully", "#45dd91");

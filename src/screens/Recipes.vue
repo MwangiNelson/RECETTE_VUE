@@ -24,7 +24,7 @@ export default {
     getRecipes() {
       this.recipes = [];
       axios
-        .get(`${this.$store.state.url_header}api/tests`)
+        .get(`${this.$store.state.url_header}recipes`)
         .then((res) => {
           this.recipes = res.data.data;
         })

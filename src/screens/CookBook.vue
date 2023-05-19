@@ -45,9 +45,7 @@ export default {
         email: this.$store.state.user.email,
       };
       axios
-        .get(
-          `${this.$store.state.url_header}api/getCookBook/${this.$store.state.user.email}`
-        )
+        .post(`${this.$store.state.url_header}recipe/getCookBook`, userData)
         .then((res) => {
           this.loading = false;
           this.recipes = res.data.data;

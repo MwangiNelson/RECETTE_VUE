@@ -4,7 +4,7 @@ import Axios from 'axios'
 const state = {
     isAuthenticated: false,
     user: null,
-    url_header: 'http://127.0.0.1:8000/'
+    url_header: 'http://127.0.0.1:8000/api/'
 }
 
 const mutations = {
@@ -22,7 +22,7 @@ const mutations = {
 const actions = {
     async login({ commit }, userData) {
         try {
-            const response = await Axios.post(`${store.state.url_header}api/user/sign-in`, userData)
+            const response = await Axios.post(`${store.state.url_header}user/sign-in`, userData)
             commit('login', response.data.data.user)
             return response.data.data.message
         } catch (error) {
@@ -31,7 +31,7 @@ const actions = {
     },
     async register({ commit }, userData) {
         try {
-            const response = await Axios.post(`${store.state.url_header}api/user/sign-up`, userData)
+            const response = await Axios.post(`${store.state.url_header}user/sign-up`, userData)
             commit('login', response.data.data.user)
             return response.data.data.message
         } catch (error) {

@@ -34,6 +34,7 @@
             }`"
             @mouseenter="hoveredIndex = item.id"
             @mouseleave="hoveredIndex = -1"
+            @click="showDetailedRecipe(item.id, item.title)"
           >
             <img :src="item.image_url" class="img-contain m-0 rounded" alt="" />
             <div class="w-100 d-flex flex-column">
@@ -64,9 +65,13 @@ export default {
   methods: {
     getTopItems() {
       this.topItems = [];
-      axios.get("http://127.0.0.1:8000/api/tests").then((res) => {
+      axios.get(`${this.$store.state.url_header}recipes`).then((res) => {
         this.topItems = res.data.data;
       });
+    },
+    showDetailedRecipe(id, title) {
+      sessionStorage.setItem("id", id);
+      this.$router.push(`/recipes/${encodeURIComponent(title)}`);
     },
   },
   mounted() {

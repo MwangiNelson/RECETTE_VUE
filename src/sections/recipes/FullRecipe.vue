@@ -114,7 +114,7 @@ export default {
     getRecipe() {
       axios
         .get(
-          `${this.$store.state.url_header}api/tests/${sessionStorage.getItem(
+          `${this.$store.state.url_header}recipes/${sessionStorage.getItem(
             "id"
           )}`
         )
@@ -155,7 +155,7 @@ export default {
         username: this.$store.state.user.username,
         recipe_id: sessionStorage.getItem("id"),
       };
-      axios.post(`${this.$store.state.url_header}api/recipe/save`, data)
+      axios.post(`${this.$store.state.url_header}recipe/addToCookBook`, data)
         .then((res)=>{
           sessionStorage.setItem('savedRecipes',res)
           notification("Recipe has been added to your cookbook", "#45dd91");
